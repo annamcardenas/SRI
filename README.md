@@ -10,5 +10,6 @@ Ejercicio | Descripción
 [Ejercicio4](tema1/markdown.pdf) | ¿Qué es markdown? Crea una cuenta en Github, si no la tienes ya. A continuación crea un repositorio nuevo llamado “prueba” que incluya una página “README.md”. Utiliza markdown para que incluya varias cabeceras, texto, una lista, un gráfico y una tabla
 
 
+<img width="489" height="93" alt="image" src="https://github.com/user-attachments/assets/2c32288d-e89f-4fb6-9364-3cd67d77f76a" />
 
 

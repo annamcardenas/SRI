@@ -9,7 +9,8 @@ Ejercicio | Descripción
 [Ejercicio3](tema1/svg.html) | ¿Qué es SVG? Busca un ejemplo.
 [Ejercicio4](tema1/markdown.pdf) | ¿Qué es markdown? Crea una cuenta en Github, si no la tienes ya. A continuación crea un repositorio nuevo llamado “prueba” que incluya una página “README.md”. Utiliza markdown para que incluya varias cabeceras, texto, una lista, un gráfico y una tabla
 
+<img width="223" height="113" alt="image" src="https://github.com/user-attachments/assets/145e5197-955a-477b-96a4-92ee7b08c108" />
 
-<img width="489" height="93" alt="image" src="https://github.com/user-attachments/assets/2c32288d-e89f-4fb6-9364-3cd67d77f76a" />
+
 
 

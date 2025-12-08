@@ -13,3 +13,12 @@ Ejercicio | Descripción | Archivo
 Ejercicio | Descripción | Archivo
 ----------|-------------|--------
 [Actividad 1.1](Tema_1/Actv_1.1.md) | Apache | Actv_1.1.md
+[Actividad 2](Tema_1/Actv_2.md) | Apache | Actv_2.md
+[Actividad 3](Tema_1/Actv_3.md) | Apache | Actv_3.md
+[Actividad 4](Tema_1/Actv_4.md) | Apache | Actv_4.md
+[Actividad 5](Tema_1/Actv_5.md) | Apache | Actv_5.md
+[Actividad 6](Tema_1/Actv_6.md) | Apache | Actv_6.md
+[Scripts](Tema_1/scripts.md) | Apache | scripts.md
+
+
+

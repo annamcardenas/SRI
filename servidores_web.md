@@ -256,18 +256,18 @@ sudo nano /etc/apache2/sites-available/centro.intranet.conf
 Para centro.intranet (WordPress)
 
 <VirtualHost *:80>
+
     ServerName centro.intranet
     ServerAlias www.centro.intranet
-    DocumentRoot /var/www/centro.intranet/public_html
-    
+    DocumentRoot /var/www/centro.intranet/public_html 
     <Directory /var/www/centro.intranet/public_html>
         AllowOverride All
         Require all granted
         Options Indexes FollowSymLinks
     </Directory>
-    
     ErrorLog ${APACHE_LOG_DIR}/centro_error.log
     CustomLog ${APACHE_LOG_DIR}/centro_access.log combined
+
 </VirtualHost>
 
 - ServerName: Nombre principal del dominio

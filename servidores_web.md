@@ -18,6 +18,7 @@ En esta práctica vamos a configurar un servidor web Apache para un instituto, i
 ### 2.1 Actualización del sistema
 
 sudo apt update && sudo apt upgrade -y
+
 sudo apt install curl wget vim git -y
 
 <img width="706" height="271" alt="image" src="https://github.com/user-attachments/assets/b95a4ccf-4f77-41cb-b186-bc734be8230b" />
@@ -25,7 +26,9 @@ sudo apt install curl wget vim git -y
 Instalamos Apache2
 
 sudo apt install apache2 -y
+
 sudo systemctl start apache2
+
 sudo systemctl enable apache2
 
 <img width="694" height="107" alt="image" src="https://github.com/user-attachments/assets/6e3855c8-bfba-45a5-bd82-d45fcbb21571" />
@@ -61,10 +64,12 @@ sudo mkdir -p /var/www/departamento.centro.intranet/public_html
 
 <img width="707" height="229" alt="image" src="https://github.com/user-attachments/assets/1c5bc0b3-5282-44f6-a7a5-45a6bb569a6a" />
 
- Asignamos permisos adecuados
+Asignamos permisos adecuados
 
 sudo chown -R $USER:$USER /var/www/centro.intranet/public_html
+
 sudo chown -R $USER:$USER /var/www/departamento.centro.intranet/public_html
+
 sudo chmod -R 755 /var/www/
 
 chown -R $USER:$USER: Establece al usuario actual como propietario, facilitando la gestión de archivos

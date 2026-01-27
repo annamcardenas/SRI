@@ -20,5 +20,7 @@ Ejercicio | Descripción | Archivo
 [Actividad 6](Tema_1/Actv_6.md) | Autenticación Apache | Actv_6.md
 [Scripts](Tema_1/scripts.md) | Apache | scripts.md
 
-
-
+## TEMA 2 - 2º ASIR
+Ejercicio | Descripción | Archivo
+----------|-------------|--------
+[Actividad 5](Tema_2/Act_5.md) | Instalar Bind en el servidor DNS | Act_5.md

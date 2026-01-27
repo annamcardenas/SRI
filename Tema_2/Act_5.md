@@ -1,6 +1,6 @@
-## Instalar Bind en el servidor DNS
+# Instalar Bind en el servidor DNS
 
-# Primero actualizamos los paquetes 
+## Primero actualizamos los paquetes 
 
 <img width="709" height="161" alt="image" src="https://github.com/user-attachments/assets/bf6a8fb5-a0c0-4924-a18c-de2da8250729" />
 
@@ -8,7 +8,7 @@ Instalamos los componentes bind.
 
 <img width="882" height="107" alt="image" src="https://github.com/user-attachments/assets/c3880fac-3f22-4826-8a56-85d1548f2f52" />
 
-# Configurar como servidor DNS de almacenamiento en caché
+## Configurar como servidor DNS de almacenamiento en caché
 
 Primero configuramos Bind para que actúe como un servidor DNS de almacenamiento en caché. Esta configuración obligará al servidor a buscar respuestas recursivamente de otros servidores DNS cuando un cliente emita una consulta. 
 
@@ -133,7 +133,7 @@ La segunda consulta que se realiza tarda 1msec ya que esta consulta ya se ha gua
 
 <img width="1205" height="777" alt="image" src="https://github.com/user-attachments/assets/a276abe9-3a3d-4abb-81b1-7e75f43284a2" />
 
-# Comprobación desde otro Ubuntu Desktop
+## Comprobación desde otro Ubuntu Desktop
 
 En la primera consulta el query time fue de 23msec.
 

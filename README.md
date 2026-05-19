@@ -24,3 +24,6 @@ Ejercicio | Descripción | Archivo
 Ejercicio | Descripción | Archivo
 ----------|-------------|--------
 [Actividad 5](Tema_2/Act_5.md) | Instalar Bind en el servidor DNS | Act_5.md
+[Actividad 6](Tema_2/Act_6.md) | Configurar un servidor DNS con BIND9 | Act_6.md
+[Actividad 8](Tema_2/Act_8.md) | Subdominios en BIND9 | Act_8.md
+

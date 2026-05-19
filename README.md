@@ -19,6 +19,7 @@ Ejercicio | Descripción | Archivo
 [Actividad 5](Tema_1/Actv_5.md) | VirtualHost Apache | Actv_5.md
 [Actividad 6](Tema_1/Actv_6.md) | Autenticación Apache | Actv_6.md
 [Scripts](Tema_1/scripts.md) | Apache | scripts.md
+[Práctica Final](SRI/servidores_web.md) | **Proyecto Integrador:** Instalación y configuración de servidor web Apache con WordPress y aplicación Python | servidores_web.md
 
 ## TEMA 2 - 2º ASIR
 Ejercicio | Descripción | Archivo

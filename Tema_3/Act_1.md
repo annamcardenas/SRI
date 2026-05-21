@@ -67,7 +67,7 @@ wsl
 docker run hello-world
 ```
 
-<img width="788" height="548" alt="image" src="https://github.com/user-attachments/assets/e59af6b8-b965-4590-ab96-192199fedbb6" />
+<img width="705" height="204" alt="image" src="https://github.com/user-attachments/assets/1c45c401-aea2-4e35-9754-b7373fb80d7d" />
 
 
 

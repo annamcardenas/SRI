@@ -1,4 +1,4 @@
-<img width="1102" height="217" alt="image" src="https://github.com/user-attachments/assets/3baa182b-1fe6-4bdc-97a2-7c31b754a1d5" /># Actividad 5 - Docker Compose
+# Actividad 5 - Docker Compose
 
 ## Instalación de Docker Compose
 

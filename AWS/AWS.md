@@ -191,10 +191,12 @@ Se crea un nuevo sistema de archivos EFS con el nombre almacenamiento-wordpress.
 <img width="669" height="596" alt="image" src="https://github.com/user-attachments/assets/a2bfbd7b-ba76-4cad-855f-c854bd0fffc3" />
 
 ---
+Se editan las reglas de entrada del grupo de seguridad de la instancia EC2.
 
 <img width="1361" height="394" alt="image" src="https://github.com/user-attachments/assets/14ad39df-1a58-4d2c-97cc-6bac2bab9541" />
 
 ---
+El asistente de EFS proporciona los comandos necesarios para montar el sistema de archivos en la instancia.
 
 <img width="1365" height="479" alt="image" src="https://github.com/user-attachments/assets/98c14a0e-da4b-442f-b4fc-a067381618f5" />
 
@@ -203,20 +205,24 @@ Se crea un nuevo sistema de archivos EFS con el nombre almacenamiento-wordpress.
 <img width="1342" height="476" alt="image" src="https://github.com/user-attachments/assets/21253d99-372e-48f8-908d-9385fa4def62" />
 
 ---
+Se ejecuta el comando mount para montar el sistema de archivos EFS en el directorio /home/admin/efs de la instancia. A continuación, se utiliza df -h para comprobar que el montaje se ha realizado correctamente. Se puede observar que el EFS aparece montado con origen 10.2.0.215:/ y un tamaño muy grande (8.0E), lo que confirma su naturaleza elástica.
 
 <img width="975" height="302" alt="image" src="https://github.com/user-attachments/assets/7b7920cc-2857-4cc6-afd0-bc35280d7b65" />
 
 ---
 
 ## Instalación de Wordpress
+Desde el directorio /var/www/html, se descarga el paquete de WordPress utilizando wget http://wordpress.org/latest.tar.gz. La descarga se realiza correctamente y el archivo latest.tar.gz de aproximadamente 28 MB se guarda en el directorio.
 
 <img width="965" height="284" alt="image" src="https://github.com/user-attachments/assets/01303f8e-6e4a-4bbc-92fc-3312b02e822f" />
 
 ---
+Se descomprime el archivo latest.tar.gz con sudo tar -xf, generando el directorio wordpress con todos los archivos necesarios. También se instala el cliente de MySQL (default-mysql-client), que incluye el comando mysql para poder conectarse a la base de datos.
 
 <img width="956" height="374" alt="image" src="https://github.com/user-attachments/assets/7a169c9d-9844-49db-8c57-889db5d00b2e" />
 
 ---
+Desde la instancia EC2, se conecta a la base de datos RDS utilizando el cliente MySQL. Se especifica el endpoint de la base de datos (bbdd-wordpress.cti604ac8tfx.eu-west-1.rds.amazonaws.com), el puerto 3306, el usuario admin y el certificado SSL para la conexión segura. Una vez conectado, se ejecutan las sentencias SQL para crear la base de datos wordpress, el usuario wp_user con contraseña admin, y se le conceden todos los privilegios sobre la base de datos.
 
 <img width="967" height="215" alt="image" src="https://github.com/user-attachments/assets/6faa5a7c-22d5-41fb-8ad0-ef8c549c7434" />
 
@@ -225,22 +231,27 @@ Se crea un nuevo sistema de archivos EFS con el nombre almacenamiento-wordpress.
 <img width="596" height="215" alt="image" src="https://github.com/user-attachments/assets/4b7958d4-3460-4244-9408-b1f54f8fb5a1" />
 
 ---
+Se accede desde el navegador a la URL http://54.217.68.53/wordpress/wp-admin/setup-config.php. Aparece la pantalla de bienvenida del asistente de configuración de WordPress, que solicita los datos necesarios para la conexión con la base de datos: nombre de la base de datos, usuario, contraseña, host y prefijo de las tablas.
 
 <img width="1082" height="672" alt="image" src="https://github.com/user-attachments/assets/f86c0371-de0e-4829-a9a0-1e59f3913d75" />
 
 ---
+Se introducen los datos de conexión a la base de datos en el formulario. El nombre de la base de datos es wordpress, el usuario es wp_user, la contraseña es la establecida anteriormente, y el host es el endpoint de RDS (bbdd-wordpress.cti604ac8tfxe.eu-west-1.rds.amazonaws.com). El prefijo de las tablas se deja como wp_ por defecto.
 
 <img width="1051" height="703" alt="image" src="https://github.com/user-attachments/assets/2e4bc88c-6d1f-465f-86d2-d0a2b4650ef3" />
 
 ---
+Una vez validada la conexión con la base de datos, se procede a configurar el sitio. Se establece el título del sitio como prueba-aws, el usuario administrador como admin, se genera una contraseña segura automáticamente, y se introduce un correo electrónico de contacto. 
 
 <img width="990" height="718" alt="image" src="https://github.com/user-attachments/assets/52e7a343-fb21-40ca-8b8f-d8dce074f631" />
 
 ---
+Se confirma que WordPress se ha instalado correctamente. Se muestra un resumen con el nombre de usuario (admin) y se informa que la contraseña es la que se eligió en el paso anterior.
 
 <img width="998" height="443" alt="image" src="https://github.com/user-attachments/assets/436c17f0-6472-4fe1-bfbd-6466671ec4b6" />
 
 ## Conexión de EFS a directorio WP-Content
+Se accede al directorio de instalación de WordPress (/var/www/html/wordpress). Primero se renombra el directorio wp-content original a wp-content-old para hacer una copia de seguridad. A continuación, se monta el sistema de archivos EFS en la nueva ubicación wp-content, utilizando la dirección 10.2.0.215:/wp-content. Finalmente, se copia el contenido de la copia de seguridad al nuevo directorio montado y se asigna la propiedad a www-data, el usuario del servidor web.
 
 <img width="659" height="57" alt="image" src="https://github.com/user-attachments/assets/6cca1366-7ce7-4521-8b60-3fc402c21a0a" />
 
@@ -253,6 +264,7 @@ Se crea un nuevo sistema de archivos EFS con el nombre almacenamiento-wordpress.
 <img width="968" height="64" alt="image" src="https://github.com/user-attachments/assets/216141b9-0397-4d26-a522-a571b947a4b8" />
 
 ---
+Se ejecuta df -h para comprobar que el sistema de archivos EFS está correctamente montado. Se puede observar que el EFS aparece montado en /var/www/html/wordpress/wp-content con origen 10.2.0.215:/ y un tamaño elástico de 8.0E (prácticamente ilimitado). Esto confirma que los archivos multimedia y plugins de WordPress se almacenarán ahora en el EFS, permitiendo persistencia y escalabilidad.
 
 <img width="679" height="285" alt="image" src="https://github.com/user-attachments/assets/7550c9c1-8e0f-4e08-8020-7360481a2696" />
 

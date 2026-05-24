@@ -98,6 +98,7 @@ Se instalan los paquetes necesarios para ejecutar PHP en el servidor: php, libap
 <img width="1108" height="716" alt="image" src="https://github.com/user-attachments/assets/38c1dae8-2d69-4fe9-baf0-8bfccc899c1c" />
 
 ---
+Se instala el paquete php-mysql, que permite a PHP conectarse y comunicarse con bases de datos MySQL. Como dependencia se instala también php8.4-mysql. Este paso es necesario para que WordPress pueda interactuar con la base de datos RDS que se creará más adelante.
 
 <img width="967" height="261" alt="image" src="https://github.com/user-attachments/assets/e260d32f-c25f-4ff4-8b9f-28bc3d5e4e39" />
 
@@ -111,31 +112,38 @@ Se instalan los paquetes necesarios para ejecutar PHP en el servidor: php, libap
 
 ---
 
+
 <img width="418" height="80" alt="image" src="https://github.com/user-attachments/assets/2216fe5d-39c7-4032-a457-a1f492e02b2c" />
 
 ---
 
 ## Creación de base de datos en RDS
+Se inicia la creación de una base de datos en el servicio RDS. Se asigna el identificador bbdd-wordpress a la instancia de base de datos. El nombre de usuario maestro se establece como admin y se elige la opción "Autoadministrado".
 
 <img width="1344" height="153" alt="image" src="https://github.com/user-attachments/assets/c5b4df60-63d5-42d2-8f1f-18af324bb841" />
 
 ---
+Se elige el motor de base de datos. Se selecciona "Configuración completa" para tener control sobre todos los parámetros. Entre las opciones disponibles, se marca MySQL como el motor a utilizar, que será compatible con WordPress.
 
 <img width="1319" height="536" alt="image" src="https://github.com/user-attachments/assets/9f6b313a-f781-4933-a556-d2122906049a" />
 
 ---
+Se configura la clase de instancia para la base de datos. Se elige el tipo db.t4g.micro, que dispone de 2 vCPUs y 1 GiB de RAM. Esta instancia está dentro de la capa gratuita y es suficiente para los requisitos de la práctica.
 
 <img width="1349" height="540" alt="image" src="https://github.com/user-attachments/assets/5ef99fff-e210-469d-9c4b-3a354305968c" />
 
 ---
+Se configura el almacenamiento de la base de datos. Se asignan 20 GiB de capacidad, que es el mínimo permitido. Las IOPS se establecen en 3000 y el rendimiento en 125 MiB/s, valores por defecto adecuados para esta práctica.
 
 <img width="993" height="418" alt="image" src="https://github.com/user-attachments/assets/b69271b8-3625-447a-8a20-7ea61a125368" />
 
 ---
+Se configura la conectividad de la base de datos. Se selecciona la VPC proyecto_AWS-vpc creada anteriormente. El acceso público se establece en "No" por seguridad, ya que la base de datos solo debe ser accesible desde recursos dentro de la VPC (como la instancia EC2). Se creará un nuevo grupo de seguridad específico para la base de datos.
 
 <img width="1007" height="511" alt="image" src="https://github.com/user-attachments/assets/ced80821-d447-4573-b0a8-3db3bfc3d4fb" />
 
 ---
+Se define el grupo de seguridad de VPC para la base de datos. Se elige la opción "Crear nuevo" y se asigna el nombre Seguridad-wordpress. Este grupo de seguridad controlará qué tráfico puede llegar a la base de datos.
 
 <img width="1337" height="515" alt="image" src="https://github.com/user-attachments/assets/345e41d6-e975-4e6a-abe2-c681d3716a0e" />
 
@@ -144,12 +152,15 @@ Se instalan los paquetes necesarios para ejecutar PHP en el servidor: php, libap
 <img width="1338" height="508" alt="image" src="https://github.com/user-attachments/assets/f062e22d-4a9b-45b7-a055-a28cd58af156" />
 
 ---
+En la configuración adicional se especifica el nombre de la base de datos inicial: bbdd_wordpress. Se mantienen los valores por defecto para el grupo de parámetros (default.mysql8.4) y el grupo de opciones (default-mysql-8-4). 
 
 <img width="981" height="519" alt="image" src="https://github.com/user-attachments/assets/030f7de0-d139-474f-829e-3b62d09d6bb9" />
 
 ---
 
 ### Dejamos creando la base de datos
+
+Se muestra el estado de creación de la base de datos bbdd-wordpress. Inicialmente aparece con estado "Creando", y posteriormente cambia a "Configuring-enhanced..." mientras RDS aplica la configuración adicional. La instancia seleccionada es db.t4g.micro con motor MySQL Community. Este proceso puede tardar varios minutos en completarse.
 
 <img width="1361" height="298" alt="image" src="https://github.com/user-attachments/assets/17a19d24-32d3-4750-a1ab-5ddddbe2478c" />
 
@@ -158,20 +169,24 @@ Se instalan los paquetes necesarios para ejecutar PHP en el servidor: php, libap
 <img width="1136" height="267" alt="image" src="https://github.com/user-attachments/assets/21ababc1-9b08-4089-99c9-3ba2b968afd2" />
 
 ---
+RDS proporciona un asistente para facilitar la conexión entre la instancia EC2 y la base de datos. Se selecciona la instancia servidor_wordpress (i-0db5e4c77ec7002b7), que se encuentra en la misma VPC que la base de datos. El asistente configurará automáticamente los permisos necesarios en los grupos de seguridad.
 
 <img width="1358" height="444" alt="image" src="https://github.com/user-attachments/assets/f2930f2c-62eb-4b06-9eeb-1babb1c713a6" />
 
 ---
+Se confirma que la conexión entre la base de datos RDS bbdd-wordpress y la instancia EC2 se ha establecido correctamente. 
 
 <img width="1359" height="291" alt="image" src="https://github.com/user-attachments/assets/a608c6fd-e78d-4a7b-80e9-76c91d115730" />
 
 ---
 
 ## Creación de un EFS
+Se accede al servicio Amazon Elastic File System (EFS) desde la consola de AWS. EFS proporciona un sistema de archivos NFS elástico y escalable que puede ser montado por múltiples instancias EC2 simultáneamente. Se pulsa el botón "Crear un sistema de archivos" para comenzar la configuración.
 
 <img width="1277" height="258" alt="image" src="https://github.com/user-attachments/assets/3ce9ceaf-4a00-40db-b563-13ea1346d0cb" />
 
 ---
+Se crea un nuevo sistema de archivos EFS con el nombre almacenamiento-wordpress. Se selecciona la VPC proyecto_AWS-vpc para que sea accesible desde la instancia EC2. 
 
 <img width="669" height="596" alt="image" src="https://github.com/user-attachments/assets/a2bfbd7b-ba76-4cad-855f-c854bd0fffc3" />
 

@@ -1,35 +1,54 @@
-# Practica AWS
+# Práctica AWS: Despliegue de WordPress con VPC, RDS y EFS
+
+## Introducción
+
+En esta práctica se describe el proceso completo de despliegue de una aplicación WordPress en AWS, utilizando una arquitectura de red segmentada y servicios gestionados.
+
+Los objetivos principales son:
+
+- **Crear una VPC** con 2 subredes públicas y 2 privadas para simular un entorno realista.
+- **Lanzar una instancia EC2** (Debian) en una subred pública para alojar el frontend (Apache + PHP).
+- **Configurar una base de datos MySQL** gestionada con Amazon RDS, ubicada en las subredes privadas.
+- **Implementar almacenamiento compartido** con Amazon EFS, montado en el directorio `wp-content` de WordPress.
+- **Instalar y configurar WordPress** conectándolo a RDS y utilizando EFS para archivos multimedia.
 
 ## Creacion VPC
 
 <img width="750" height="208" alt="image" src="https://github.com/user-attachments/assets/2c59247c-4b06-4138-be70-6afa7a81a832" />
 
 ---
+Se asigna el bloque CIDR IPv4 10.2.0.0/16 y se deshabilita el IPv6. Se activa el etiquetado automático con el nombre proyecto_AWS
 
 <img width="1303" height="485" alt="image" src="https://github.com/user-attachments/assets/d191e5f5-5ef1-4161-94f2-e00af58cc93d" />
 
 ---
+Configuración de zonas de disponibilidad. Se eligen dos AZ para alta disponibilidad: eu-west-1a y eu-west-1b. La tenencia se mantiene como "Predeterminada".
 
 <img width="448" height="378" alt="image" src="https://github.com/user-attachments/assets/52fecb25-9201-4c3c-8833-313e47b00149" />
 
 ---
+Personalización de los bloques CIDR de las subredes. Se crean dos subredes públicas (10.2.0.0/24 y 10.2.1.0/24) y dos privadas (10.2.2.0/24 y 10.2.3.0/24), distribuidas entre las dos zonas de disponibilidad.
 
 <img width="447" height="514" alt="image" src="https://github.com/user-attachments/assets/722a98a8-2d20-45cd-b1f6-2869fb6895c1" />
 
 ---
-
+Se selecciona "Ninguna" para las puertas de enlace NAT, ya que no se necesitan por ahora. Los puntos de enlace de VPC también se dejan en "Ninguna". Se mantienen habilitadas las dos opciones de DNS: "Habilitar nombres de host DNS" y "Habilitar la resolución de DNS", necesarias para que las instancias puedan resolver nombres dentro de la VPC.
+ 
 <img width="441" height="539" alt="image" src="https://github.com/user-attachments/assets/75583481-2530-4ee3-892b-f6cb5da9813d" />
 
 ---
+Resumen del flujo de trabajo de creación de la VPC. Se muestran los recursos que se han creado automáticamente: la propia VPC con su ID, las cuatro subredes (dos públicas y dos privadas), una puerta de enlace de Internet (igw), y las tablas de enrutamiento correspondientes. Todo el proceso se ha completado correctamente.
 
 <img width="590" height="522" alt="image" src="https://github.com/user-attachments/assets/7eab40d1-920f-4fae-ae38-6fe1680e5984" />
 
 
 ## Creación de instancias
+Se inicia el asistente para lanzar una instancia EC2. Se asigna el nombre servidor_wordpress a la instancia. En la sección de sistema operativo, se selecciona la opción "Debian" dentro del catálogo de imágenes de máquina de Amazon (AMI).
 
 <img width="888" height="535" alt="image" src="https://github.com/user-attachments/assets/071e7066-8418-41d1-9e4d-ea89dfe84d8d" />
 
 ---
+Se elige el tipo de instancia t3.micro, que está dentro de la capa gratuita y dispone de 2 vCPUs y 1 GiB de memoria. También se selecciona el par de claves practica_AWS para poder conectarse por SSH de forma segura a la instancia una vez lanzada.
 
 <img width="896" height="448" alt="image" src="https://github.com/user-attachments/assets/a80123f8-ea2e-45c9-9e62-45de7169eeb7" />
 
@@ -38,10 +57,12 @@
 <img width="884" height="538" alt="image" src="https://github.com/user-attachments/assets/095aaef7-a84f-413e-a488-22ad383cd8d8" />
 
 ---
+Se configuran dos reglas de entrada para el grupo de seguridad. La primera permite tráfico SSH (puerto 22) desde cualquier dirección IP (0.0.0.0/0) para poder conectarnos remotamente. La segunda permite tráfico HTTP (puerto 80) también desde cualquier IP, para que el servidor web sea accesible públicamente.
 
 <img width="888" height="539" alt="image" src="https://github.com/user-attachments/assets/64653edf-183a-4758-b76a-f94a81b458fb" />
 
 ---
+Se confirma que la instancia se ha lanzado correctamente con el ID i-0db5e4c77ec7002b7. El registro de lanzamiento muestra que todas las etapas se completaron con éxito: inicialización de solicitudes, creación de grupos de seguridad y reglas, e inicio del lanzamiento. 
 
 <img width="430" height="412" alt="image" src="https://github.com/user-attachments/assets/46c561c2-099e-4731-a86d-3a159d10b9a8" />
 
@@ -56,12 +77,14 @@
 ---
 
 ### Nos conectamos por ssh
+Desde el terminal local se establece la conexión SSH a la instancia EC2 utilizando el par de claves practica_AWS.pem y el usuario admin.
 
 <img width="886" height="174" alt="image" src="https://github.com/user-attachments/assets/9c21ce0f-d072-466e-8ca8-96662dce252f" />
 
 ---
 
 ## Instalación de Apache y PHP
+Se inicia el servicio de Apache con sudo systemctl start apache2 y se configura para que arranque automáticamente al lanzar la instancia con sudo systemctl enable apache2. A continuación, se accede a la IP pública de la instancia desde un navegador, mostrando la página por defecto de Apache ("It works!"), lo que verifica que el servidor web está correctamente instalado y funcionando.
 
 <img width="819" height="319" alt="image" src="https://github.com/user-attachments/assets/7fb4a695-2940-4c59-b933-f93a667a9f72" />
 
@@ -70,6 +93,7 @@
 <img width="898" height="83" alt="image" src="https://github.com/user-attachments/assets/9a29132c-7482-45f0-8873-ac636adf972d" />
 
 ---
+Se instalan los paquetes necesarios para ejecutar PHP en el servidor: php, libapache2-mod-php (módulo de PHP para Apache) y php-cli (interfaz de línea de comandos). La instalación descarga e instala PHP 8.4.21 junto con sus dependencias. Finalmente, se ejecuta php -v para comprobar que PHP está correctamente instalado y se muestra la versión confirmando el éxito de la instalación.
 
 <img width="1108" height="716" alt="image" src="https://github.com/user-attachments/assets/38c1dae8-2d69-4fe9-baf0-8bfccc899c1c" />
 

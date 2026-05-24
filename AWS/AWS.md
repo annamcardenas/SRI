@@ -195,5 +195,26 @@
 
 ---
 
+<img width="990" height="718" alt="image" src="https://github.com/user-attachments/assets/52e7a343-fb21-40ca-8b8f-d8dce074f631" />
+
+---
+
+<img width="998" height="443" alt="image" src="https://github.com/user-attachments/assets/436c17f0-6472-4fe1-bfbd-6466671ec4b6" />
+
+## Conexión de EFS a directorio WP-Content
+
+<img width="659" height="57" alt="image" src="https://github.com/user-attachments/assets/6cca1366-7ce7-4521-8b60-3fc402c21a0a" />
+
+---
+
+<img width="972" height="65" alt="image" src="https://github.com/user-attachments/assets/770667cd-dec8-4897-bca1-f82cbcacfa16" />
+
+---
+
+<img width="968" height="64" alt="image" src="https://github.com/user-attachments/assets/216141b9-0397-4d26-a522-a571b947a4b8" />
+
+---
+
+<img width="679" height="285" alt="image" src="https://github.com/user-attachments/assets/7550c9c1-8e0f-4e08-8020-7360481a2696" />
 
 
